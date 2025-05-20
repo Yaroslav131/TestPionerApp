@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {ErgastDriverResponse, ErgastRaceResultsResponse} from '../types/ergast';
+import {ErgastDriverResponse, ErgastRaceResultsResponse} from '@types/ergast';
 
 const API_BASE_URL = 'http://ergast.com/api/f1';
 const REQUEST_TIMEOUT = 10000;

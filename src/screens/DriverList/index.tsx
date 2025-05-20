@@ -1,14 +1,14 @@
 import React, { useEffect, useCallback, useRef } from 'react';
 import { View, Text, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../store/rootReducer';
-import { getDrivers } from '../../store/drivers/driversActions';
+import { RootState } from '@store/rootReducer';
+import { getDrivers } from '@store/drivers/driversActions';
 import { StackScreenProps } from '@react-navigation/stack';
-import { Driver } from '../../types/ergast';
-import { RootStackParamList } from '../../navigation/AppNavigator';
+import { RootStackParamList } from '@navigation/AppNavigator';
 import DriverCard from './components/DriverCard';
 import { styles } from './styles';
 import PaginationControls from './components/PaginationControls';
+import { Driver } from '@types/ergast';
 
 type DriverListScreenProps = StackScreenProps<RootStackParamList, 'DriverList'>;
 

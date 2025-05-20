@@ -1,6 +1,6 @@
 import React from 'react';
 import { Text, TouchableOpacity } from 'react-native';
-import { Driver } from '../../../../types/ergast';
+import { Driver } from '@types/ergast';
 import { styles } from './styles';
 
 interface DriverCardProps {

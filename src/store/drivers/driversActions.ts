@@ -6,7 +6,7 @@ import {
   SET_CURRENT_DRIVER,
   DriverActionTypes,
 } from './driversTypes';
-import {Driver} from '../../types/ergast';
+import {Driver} from '@types/ergast';
 import {fetchDriverDetails, fetchDrivers} from '../../api/ergast';
 
 export const fetchDriversRequest = (): DriverActionTypes => ({

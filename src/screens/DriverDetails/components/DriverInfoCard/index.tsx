@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Text, Linking } from 'react-native';
 import { styles } from './styles';
-import { Driver } from '../../../../types/ergast';
+import { Driver } from '@types/ergast';
 
 interface DriverInfoCardProps {
     driver: Driver;

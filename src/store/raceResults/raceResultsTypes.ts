@@ -1,5 +1,4 @@
-import {Race} from '../../types/ergast';
-
+import {Race} from '@types/ergast';
 export const FETCH_RACE_RESULTS_REQUEST = 'FETCH_RACE_RESULTS_REQUEST';
 export const FETCH_RACE_RESULTS_SUCCESS = 'FETCH_RACE_RESULTS_SUCCESS';
 export const FETCH_RACE_RESULTS_FAILURE = 'FETCH_RACE_RESULTS_FAILURE';

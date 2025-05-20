@@ -5,7 +5,7 @@ import {
   FETCH_RACE_RESULTS_FAILURE,
   RaceResultActionTypes,
 } from './raceResultsTypes';
-import {Race} from '../../types/ergast';
+import {Race} from '@types/ergast';
 import {fetchDriverRaceResults} from '../../api/ergast';
 
 export const fetchRaceResultsRequest = (): RaceResultActionTypes => ({

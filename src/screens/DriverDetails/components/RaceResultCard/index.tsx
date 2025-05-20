@@ -2,7 +2,7 @@
 import React from 'react';
 import { View, Text } from 'react-native';
 import { styles } from './styles';
-import { Race, Result } from '../../../../types/ergast';
+import { Race, Result } from '@types/ergast';
 
 interface RaceResultCardProps {
     item: Race;

@@ -1,4 +1,4 @@
-import {Driver} from '../../types/ergast';
+import {Driver} from '@types/ergast';
 
 export const FETCH_DRIVERS_REQUEST = 'FETCH_DRIVERS_REQUEST';
 export const FETCH_DRIVERS_SUCCESS = 'FETCH_DRIVERS_SUCCESS';
