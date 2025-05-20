@@ -6,7 +6,7 @@ import {
   RaceResultActionTypes,
 } from './raceResultsTypes';
 import {Race} from '../../types/ergast';
-import {fetchDriverRaceResults} from '../../api/ ergast';
+import {fetchDriverRaceResults} from '../../api/ergast';
 
 export const fetchRaceResultsRequest = (): RaceResultActionTypes => ({
   type: FETCH_RACE_RESULTS_REQUEST,

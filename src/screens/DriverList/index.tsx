@@ -1,18 +1,14 @@
-import React, { useEffect, useCallback } from 'react';
-import {
-    View,
-    Text,
-    FlatList,
-    ActivityIndicator,
-    TouchableOpacity,
-} from 'react-native';
+import React, { useEffect, useCallback, useRef } from 'react';
+import { View, Text, FlatList, ActivityIndicator, TouchableOpacity } from 'react-native';
 import { useDispatch, useSelector } from 'react-redux';
-import { RootState } from '../../redux/rootReducer';
-import { getDrivers } from '../../redux/drivers/driversActions';
+import { RootState } from '../../store/rootReducer';
+import { getDrivers } from '../../store/drivers/driversActions';
 import { StackScreenProps } from '@react-navigation/stack';
 import { Driver } from '../../types/ergast';
 import { RootStackParamList } from '../../navigation/AppNavigator';
+import DriverCard from './components/DriverCard';
 import { styles } from './styles';
+import PaginationControls from './components/PaginationControls';
 
 type DriverListScreenProps = StackScreenProps<RootStackParamList, 'DriverList'>;
 
@@ -23,41 +19,40 @@ const DriverListScreen: React.FC<DriverListScreenProps> = ({ navigation }) => {
     );
 
     const totalPages = Math.ceil(totalDrivers / driversPerPage);
+    const flatListRef = useRef<FlatList>(null);
 
     useEffect(() => {
-        console.log('Fetching drivers...');
         dispatch(getDrivers(currentPage, driversPerPage));
     }, [dispatch, currentPage, driversPerPage]);
 
     const handleNextPage = useCallback(() => {
         if (currentPage < totalPages - 1) {
             dispatch(getDrivers(currentPage + 1, driversPerPage));
+            if (flatListRef.current) {
+                flatListRef.current.scrollToOffset({ offset: 0, animated: true });
+            }
         }
     }, [dispatch, currentPage, totalPages, driversPerPage]);
 
     const handlePrevPage = useCallback(() => {
         if (currentPage > 0) {
             dispatch(getDrivers(currentPage - 1, driversPerPage));
+            if (flatListRef.current) {
+                flatListRef.current.scrollToOffset({ offset: 0, animated: true });
+            }
         }
     }, [dispatch, currentPage, driversPerPage]);
 
     const renderDriverItem = ({ item }: { item: Driver }) => (
-        <TouchableOpacity
-            style={styles.driverCard}
+        <DriverCard
+            driver={item}
             onPress={() =>
                 navigation.navigate('DriverDetails', {
                     driverId: item.driverId,
                     driverName: `${item.givenName} ${item.familyName}`,
                 })
             }
-        >
-            <Text style={styles.driverName}>{`${item.givenName} ${item.familyName}`}</Text>
-            <Text>Nationality: {item.nationality}</Text>
-            <Text>DOB: {item.dateOfBirth}</Text>
-            {item.permanentNumber && (
-                <Text>Permanent Number: {item.permanentNumber}</Text>
-            )}
-        </TouchableOpacity>
+        />
     );
 
     if (loading && drivers.length === 0) {
@@ -86,31 +81,20 @@ const DriverListScreen: React.FC<DriverListScreenProps> = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <FlatList
+                ref={flatListRef}
                 data={drivers}
                 keyExtractor={(item) => item.driverId}
                 renderItem={renderDriverItem}
                 contentContainerStyle={styles.listContent}
                 ListEmptyComponent={<Text style={styles.noDataText}>No drivers found.</Text>}
             />
-            <View style={styles.paginationControls}>
-                <TouchableOpacity
-                    style={[styles.paginationButton, currentPage === 0 || loading ? styles.paginationButtonDisabled : null]}
-                    onPress={handlePrevPage}
-                    disabled={currentPage === 0 || loading}
-                >
-                    <Text style={styles.paginationButtonText}>Previous</Text>
-                </TouchableOpacity>
-                <Text style={styles.pageInfo}>
-                    Page {currentPage + 1} of {totalPages}
-                </Text>
-                <TouchableOpacity
-                    style={[styles.paginationButton, currentPage >= totalPages - 1 || loading ? styles.paginationButtonDisabled : null]}
-                    onPress={handleNextPage}
-                    disabled={currentPage >= totalPages - 1 || loading}
-                >
-                    <Text style={styles.paginationButtonText}>Next</Text>
-                </TouchableOpacity>
-            </View>
+            <PaginationControls
+                currentPage={currentPage}
+                totalPages={totalPages}
+                loading={loading}
+                onPrev={handlePrevPage}
+                onNext={handleNextPage}
+            />
         </View>
     );
 };

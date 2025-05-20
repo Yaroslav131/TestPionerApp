@@ -1,7 +1,7 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import { PersistGate } from 'redux-persist/integration/react';
-import { store, persistor } from './src/redux/store';
+import { store, persistor } from './src/store/store';
 import { ContentContainer } from './src/components/ContentContainer';
 import AppNavigator from './src/navigation/AppNavigator';
 
